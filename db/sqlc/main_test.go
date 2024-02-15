@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	_ "github.com/lib/pq"
-	"github.com/nhan-ngo-usf/NBank/db/util"
+	"github.com/nhan-ngo-usf/NBank/util"
 )
 var testQueries *Queries
 var testDB *sql.DB

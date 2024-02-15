@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nhan-ngo-usf/NBank/db/util"
+	"github.com/nhan-ngo-usf/NBank/util"
 	"github.com/stretchr/testify/require"
 )
 
@@ -19,7 +19,7 @@ func CreateRandomUser(t *testing.T)(User) {
 		FullName: util.RandomUserName(),
 		Email: util.RandomEmail(),
 	}
-	
+
 	user, err := testQueries.CreateUser(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, user) 

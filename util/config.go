@@ -8,6 +8,7 @@ type Config struct {
 	DBDriver	string `mapstructure:"DB_DRIVER"`
 	DBSource	string `mapstructure:"DB_SOURCE"`
 	ServerAddress   string `mapstructure:"SERVER_ADDRESS"`
+	TokenSymmetricKey string `mapstructure:"TOKEN_SYMMETRIC_KEY"`
 }
 
 // reads configuration from file or environment variables.

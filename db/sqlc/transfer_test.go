@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nhan-ngo-usf/NBank/db/util"
+	"github.com/nhan-ngo-usf/NBank/util"
 	"github.com/stretchr/testify/require"
 )
 

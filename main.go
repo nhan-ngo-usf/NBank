@@ -5,9 +5,11 @@ import (
 	"log"
 
 	_ "github.com/lib/pq"
-	"github.com/nhan-ngo-usf/NBank/api"
 	db "github.com/nhan-ngo-usf/NBank/db/sqlc"
-	"github.com/nhan-ngo-usf/NBank/db/util"
+	"github.com/nhan-ngo-usf/NBank/gapi"
+	"github.com/nhan-ngo-usf/NBank/pb"
+	"github.com/nhan-ngo-usf/NBank/util"
+	"google.golang.org/grpc"
 )
 
 
@@ -24,11 +26,13 @@ func main() {
     }
 
     store := db.NewStore(conn)
-    server := api.NewServer(store)
-
-    err = server.Start(config.ServerAddress)
+    server, err := gapi.NewServer(config, store)
+    
     if err != nil {
-        log.Fatal("cannot start server: ", err)
+        log.Fatal("cannot connect to server")
     }
+    
+    gRPCserver := grpc.NewServer()
+    pb.RegisterBankServer(gRPCserver, server)
     
 }

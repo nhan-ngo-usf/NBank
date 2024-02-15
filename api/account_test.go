@@ -13,7 +13,7 @@ import (
 	"github.com/golang/mock/gomock"
 	mockdb "github.com/nhan-ngo-usf/NBank/db/mock"
 	db "github.com/nhan-ngo-usf/NBank/db/sqlc"
-	"github.com/nhan-ngo-usf/NBank/db/util"
+	"github.com/nhan-ngo-usf/NBank/util"
 	"github.com/stretchr/testify/require"
 )
 
