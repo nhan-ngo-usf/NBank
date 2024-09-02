@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "NBank",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "contact": {
       "name": "Nhan Ngo",
       "url": "https://github.com/nhan-ngo-usf/NBank"
@@ -22,6 +22,8 @@
   "paths": {
     "/v1/user/create": {
       "post": {
+        "summary": "Create new user",
+        "description": "Usee this API to create user",
         "operationId": "Bank_CreateUser",
         "responses": {
           "200": {
@@ -54,6 +56,8 @@
     },
     "/v1/user/login": {
       "post": {
+        "summary": "Login user",
+        "description": "Usee this API to login user and get access token and refresh token",
         "operationId": "Bank_LoginUser",
         "responses": {
           "200": {

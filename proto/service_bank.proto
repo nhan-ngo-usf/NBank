@@ -11,7 +11,7 @@ option go_package = "github.com/nhan-ngo-usf/NBank/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         info: {
                 title: "NBank",
-                version: "1.0.0"
+                version: "1.0.1"
                 contact : {
                         name: "Nhan Ngo",
                         url: "https://github.com/nhan-ngo-usf/NBank"
@@ -25,12 +25,20 @@ service Bank {
                         post: "/v1/user/create",
                         body: "*"
                 };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Usee this API to create user";
+                        summary: "Create new user";
+                };
         }
         
         rpc LoginUser(LoginUserRequest) returns (LoginUserResponse){
                 option(google.api.http) = {
                         post: "/v1/user/login",
                         body: "*"
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Usee this API to login user and get access token and refresh token";
+                        summary: "Login user";
                 };
         }
 }
