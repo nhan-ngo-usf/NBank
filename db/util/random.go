@@ -39,3 +39,9 @@ func RandomCurrency() string {
 	var randCurrency string = CurrencyList[rand.Intn(numCurrency)]
 	return randCurrency
 }
+func RandomEmail() string {
+	var EmailDomain = []string {"gmail", "hotmail", "outlook"}
+	randomName := RandomUserName()
+	randomEmail := randomName + EmailDomain[rand.Intn(len(EmailDomain))] + ".com"
+	return randomEmail
+}

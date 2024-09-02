@@ -10,8 +10,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 func createRandomAccount(t *testing.T) Account {
+	user := CreateRandomUser(t)
 	arg := CreateAccountParams {
-		UserName: util.RandomUserName(),
+		UserName: user.Username,
 		Balance: util.RandomBalance(),
 		Currency: util.RandomCurrency(),
 	}
@@ -20,6 +21,8 @@ func createRandomAccount(t *testing.T) Account {
 	require.NotEmpty(t, account)
 	require.NotZero(t, account.ID)
 	require.NotZero(t, account.CreatedAt)
+
+	
 	require.Equal(t, arg.UserName, account.UserName)
 	require.Equal(t, arg.Balance, account.Balance)
 	require.Equal(t, arg.Currency, account.Currency)
