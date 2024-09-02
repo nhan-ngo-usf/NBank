@@ -1,8 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "rpc_create_user.proto",
-    "version": "version not set"
+    "title": "NBank",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Nhan Ngo",
+      "url": "https://github.com/nhan-ngo-usf/NBank"
+    }
   },
   "tags": [
     {
