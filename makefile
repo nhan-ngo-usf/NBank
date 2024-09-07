@@ -11,6 +11,9 @@ migratedown:
 	migrate -path db/migration -database "postgresql://myuser:mypassword@localhost:5432/simple_bank?sslmode=disable" -verbose down
 migratedownuser:
 	migrate -path db/migration -database "postgresql://myuser:mypassword@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+
+new_migration:
+	migrate create -ext sql -dir db/migration -seq $(name)
 sqlc:
 	docker-compose run --rm sqlc
 postgresql:
@@ -26,4 +29,6 @@ proto:
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
 	proto/*.proto
-.PHONY: createdb dropdb migrateup migratedown migrateupuser migratedownuser sqlc postgresql test server mock proto
+evans:
+	evans -r repl --host localhost --port=8080
+.PHONY: createdb dropdb migrateup migratedown migrateupuser migratedownuser sqlc postgresql test server mock proto evans
