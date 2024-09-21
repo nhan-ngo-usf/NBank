@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: mypassword
     ports:
       - '5432:5432'
+    networks:
+      - bank-network
 
   sqlc:
     container_name: sqlc
