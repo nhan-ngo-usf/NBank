@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "NBank",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "contact": {
       "name": "Nhan Ngo",
       "url": "https://github.com/nhan-ngo-usf/NBank"
@@ -20,6 +20,118 @@
     "application/json"
   ],
   "paths": {
+    "/v1/account/create": {
+      "post": {
+        "summary": "Create new account",
+        "description": "Use this API to create account",
+        "operationId": "Bank_CreateAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bank"
+        ]
+      }
+    },
+    "/v1/account/list": {
+      "get": {
+        "summary": "List all accounts",
+        "description": "Use this API to list all accounts",
+        "operationId": "Bank_ListAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbListAccountsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Bank"
+        ]
+      }
+    },
+    "/v1/account/{accountId}": {
+      "get": {
+        "summary": "Create new account",
+        "description": "Use this API to create account",
+        "operationId": "Bank_GetAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Bank"
+        ]
+      }
+    },
     "/v1/user/create": {
       "post": {
         "summary": "Create new user",
@@ -87,9 +199,88 @@
           "Bank"
         ]
       }
+    },
+    "/v1/user/update": {
+      "patch": {
+        "summary": "Update user",
+        "description": "Usee this API to update user",
+        "operationId": "Bank_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Bank"
+        ]
+      }
     }
   },
   "definitions": {
+    "pbAccount": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string",
+          "format": "int64"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbCreateAccountRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbCreateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/pbAccount"
+        }
+      }
+    },
     "pbCreateUserRequest": {
       "type": "object",
       "properties": {
@@ -112,6 +303,26 @@
       "properties": {
         "user": {
           "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbGetAccountResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/pbAccount"
+        }
+      }
+    },
+    "pbListAccountsResponse": {
+      "type": "object",
+      "properties": {
+        "accounts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAccount"
+          }
         }
       }
     },
@@ -151,7 +362,7 @@
         }
       }
     },
-    "pbUser": {
+    "pbUpdateUserRequest": {
       "type": "object",
       "properties": {
         "username": {
@@ -161,6 +372,28 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "pbUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbUser": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
           "type": "string"
         },
         "passwordChangedAt": {

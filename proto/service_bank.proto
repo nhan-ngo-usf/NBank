@@ -4,6 +4,10 @@ package pb;
 
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
+import "rpc_update_user.proto";
+import "rpc_create_account.proto";
+import "rpc_get_account.proto";
+import "rpc_list_accounts.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
 option go_package = "github.com/nhan-ngo-usf/NBank/pb";
@@ -11,7 +15,7 @@ option go_package = "github.com/nhan-ngo-usf/NBank/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         info: {
                 title: "NBank",
-                version: "1.0.1"
+                version: "1.0.2"
                 contact : {
                         name: "Nhan Ngo",
                         url: "https://github.com/nhan-ngo-usf/NBank"
@@ -29,7 +33,17 @@ service Bank {
                         description: "Usee this API to create user";
                         summary: "Create new user";
                 };
-        }
+        };
+        rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse){
+                option(google.api.http) = {
+                        patch: "/v1/user/update",
+                        body: "*"
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Usee this API to update user";
+                        summary: "Update user";
+                };
+        };
         
         rpc LoginUser(LoginUserRequest) returns (LoginUserResponse){
                 option(google.api.http) = {
@@ -40,5 +54,33 @@ service Bank {
                         description: "Usee this API to login user and get access token and refresh token";
                         summary: "Login user";
                 };
-        }
+        };
+        rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {
+                option(google.api.http) = {
+                        post: "/v1/account/create",
+                        body: "*"
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Use this API to create account";
+                        summary: "Create new account";
+                };
+        };
+        rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {
+                option(google.api.http) = {
+                        get: "/v1/account/{account_id}",
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Use this API to create account";
+                        summary: "Create new account";
+                };
+        };
+        rpc ListAccount(ListAccountsRequest) returns (ListAccountsResponse) {
+                option(google.api.http) = {
+                        get: "/v1/account/list",
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Use this API to list all accounts";
+                        summary: "List all accounts";
+        };
+};
 }

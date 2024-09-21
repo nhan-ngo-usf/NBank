@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pb;
+import "account.proto";
+option go_package = "github.com/nhan-ngo-usf/NBank/pb";
+
+message CreateAccountRequest {
+        string username = 1;
+        string currency = 2;
+        optional int64 balance = 3;
+}
+message CreateAccountResponse {
+        Account account = 1;
+}
