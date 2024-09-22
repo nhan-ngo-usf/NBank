@@ -9,9 +9,20 @@ services:
       POSTGRES_PASSWORD: mypassword
     ports:
       - '5432:5432'
-    networks:
-      - bank-network
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+      - '9090:9090'
+    environment:
+      - DB_SOURCE=postgresql://myuser:mypassword@postgresDB:5432/simple_bank?sslmode=disable
+    depends_on:
+      - db
+    entrypoint: ['/app/wait-for.sh', 'postgresDB:5432', '--', '/app/start.sh']
+    command: ['/app/main']
   sqlc:
     container_name: sqlc
     image: sqlc/sqlc
