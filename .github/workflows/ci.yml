@@ -35,6 +35,6 @@ jobs:
       - name: Install migration
         run: go get -v github.com/golang-migrate/migrate/v4/cmd/migrate
       - name: run Migration
-        run: make migrate up
+        run: make migrateup
       - name: Test
         run: make test
