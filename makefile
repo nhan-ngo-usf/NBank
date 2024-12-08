@@ -11,5 +11,6 @@ sqlc:
 	docker-compose run --rm sqlc
 postgresql:
 	docker-compose up -d postgresDB
-
+test:
+	go test -v -cover ./...
 .PHONY: createdb dropdb migrateup migratedown sqlc postgresql
