@@ -10,7 +10,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    # Servie containers to run with container job
     services:
       postgres:
         image: postgres:12-alpine
@@ -23,6 +22,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
       - name: Check out code into the go module directory
         uses: actions/checkout@v4
@@ -34,9 +34,11 @@ jobs:
         id: go
 
       - name: Install golang migrate
-        run: curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.tar.gz | tar xvz
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate /usr/local/bin/
 
-      - name: run Migration
+      - name: Run Migration
         run: make migrateup
 
       - name: Test
