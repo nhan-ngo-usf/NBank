@@ -40,6 +40,9 @@ jobs:
           curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.1/migrate.linux-amd64.tar.gz | tar xvz
           sudo mv migrate /usr/bin/migrate
           which migrate
+      - name: Verify simple_bank Database
+        run: |
+          PGPASSWORD=mypassword psql -h localhost -U myuser -d postgres -c "\l"
       - name: Run Migration
         run: make migrateup
 
