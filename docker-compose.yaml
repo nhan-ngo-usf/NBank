@@ -5,7 +5,7 @@ services:
     image: postgres:12-alpine
     restart: always
     environment:
-      POSTGRES_DB: mydb
+      POSTGRES_DB: simple_bank
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
     ports:
