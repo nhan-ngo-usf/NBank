@@ -3,7 +3,6 @@ services:
   db:
     container_name: postgresDB
     image: postgres:12-alpine
-    restart: always
     environment:
       POSTGRES_DB: simple_bank
       POSTGRES_USER: myuser
@@ -13,7 +12,6 @@ services:
     volumes:
       - ./docker-volumes/db:/var/lib/postgresql/data
   sqlc:
-    restart: always
     container_name: sqlc
     image: sqlc/sqlc
     volumes:

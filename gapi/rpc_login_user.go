@@ -26,7 +26,6 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 	}
 
 	err = util.CheckPassword(password, user.HashedPassword)
-
 	if err != nil {
 		return nil, status.Errorf(codes.InvalidArgument, "invalid password: %s", err)	
 	}
@@ -53,12 +52,13 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 		return nil, status.Errorf(codes.Internal, "failed to generate session ID")
 	}
 
+	metadata := server.extractMetadata(ctx)
 	session, err := server.store.CreateSession(ctx, db.CreateSessionParams {
 		ID:		sessionID,
 		Username:	user.Username,
 		RefreshToken: 	refreshToken,
-		UserAgent:	"",
-		ClientIp:	"",
+		UserAgent:	metadata.UserAgent,
+		ClientIp:	metadata.ClientIP,
 		IsBlocked:	false,
 		ExpiresAt:	refreshPayload.ExpiredAt,
 	})
