@@ -9,6 +9,8 @@ services:
       POSTGRES_PASSWORD: mypassword
     ports:
       - '5432:5432'
+  redis:
+    image: redis:7-alpine
 
   api:
     build:
@@ -21,6 +23,7 @@ services:
       - DB_SOURCE=postgresql://myuser:mypassword@postgresDB:5432/simple_bank?sslmode=disable
     depends_on:
       - db
+      - redis
     entrypoint: ['/app/wait-for.sh', 'postgresDB:5432', '--', '/app/start.sh']
     command: ['/app/main']
   sqlc:

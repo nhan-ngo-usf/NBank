@@ -7,6 +7,7 @@ import (
 	"github.com/nhan-ngo-usf/NBank/pb"
 	"github.com/nhan-ngo-usf/NBank/token"
 	"github.com/nhan-ngo-usf/NBank/util"
+	"github.com/nhan-ngo-usf/NBank/worker"
 )
 
 
@@ -16,8 +17,9 @@ type Server struct {
 	store	 	db.Store
 	config	 	util.Config
 	tokenMaker 	token.Maker
+	TaskDistributor worker.TaskDistributor
 }
-func NewServer(config util.Config, store db.Store) (*Server, error){
+func NewServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) (*Server, error){
 	
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
@@ -28,8 +30,8 @@ func NewServer(config util.Config, store db.Store) (*Server, error){
 		store: store,
 		config: config,
 		tokenMaker: tokenMaker,
+		TaskDistributor: taskDistributor,
 	}
-
 	return server, nil
 }
 
