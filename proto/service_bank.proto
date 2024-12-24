@@ -8,6 +8,7 @@ import "rpc_update_user.proto";
 import "rpc_create_account.proto";
 import "rpc_get_account.proto";
 import "rpc_list_accounts.proto";
+import "rpc_verify_email.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
 option go_package = "github.com/nhan-ngo-usf/NBank/pb";
@@ -81,6 +82,15 @@ service Bank {
                 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
                         description: "Use this API to list all accounts";
                         summary: "List all accounts";
+                };
         };
-};
+        rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+                option(google.api.http) = {
+                        get: "/v1/verify_email",
+                };
+                option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+                        description: "Use this API to verify email";
+                        summary: "Verify email";
+                };
+        };
 }

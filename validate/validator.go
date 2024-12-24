@@ -87,3 +87,17 @@ func ValidateAccountID(value string) error {
 	}
 	return nil
 }
+
+func ValidateVerifyCode(value string) error {
+	err := ValidateString(value, 32,128)
+	fmt.Printf("invalid value %s", value)
+
+	return err
+}
+
+func ValidateEmailID(value int64) error {
+	if value <= 0 {
+		return fmt.Errorf("must be a positive integer")
+	}
+	return nil
+}
